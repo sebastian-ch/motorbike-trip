@@ -36,16 +36,19 @@
 </head>
 
 <body>
-    <header>
-        <h1>🚲</h1>
+   <header>
+        <h1>🚲 (idk they don't have a scooter one)</h1>
     </header>
     <div id="map"></div>
     <footer>
         <p>I rode a scooter from Phnom Penh to Saigon. Each color is a different day. Colors are random.</p>
+        <p id='dist'></p>
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
   
     <script>
         
@@ -98,6 +101,10 @@
             }).addTo(map);
 
             map.fitBounds(gjn.getBounds());
+
+            var lineString1 = turf.length(data, {units: 'miles'});
+            document.getElementById('dist').textContent = 'total distance driven: ' + Math.round(lineString1) + ' miles';
+            //console.log(lineString1)
         }
     </script>
 </body>
