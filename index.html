@@ -37,7 +37,7 @@
 
 <body>
    <header>
-        <h1>🚲 (idk they don't have a scooter one)</h1>
+        <h3>🚲 (idk they don't have a scooter emoji)</h3>
     </header>
     <div id="map"></div>
     <footer>
@@ -103,7 +103,7 @@
             map.fitBounds(gjn.getBounds());
 
             var lineString1 = turf.length(data, {units: 'miles'});
-            document.getElementById('dist').textContent = 'total distance driven: ' + Math.round(lineString1) + ' miles';
+            document.getElementById('dist').textContent = 'total distance driven calculated with TurfJS: ' + Math.round(lineString1) + ' miles';
             //console.log(lineString1)
         }
     </script>
