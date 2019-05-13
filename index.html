@@ -19,13 +19,14 @@
             margin: 10px auto 10px auto;
             text-align: center;
         }
-      
+
         #map {
             width: 90%;
             height: 680px;
             margin: 10px auto 10px auto;
-            border: 2px solid black; 
+            border: 2px solid black;
         }
+
         footer {
             width: 90%;
             margin: 10px auto 10px auto;
@@ -36,7 +37,7 @@
 </head>
 
 <body>
-   <header>
+    <header>
         <h3>🚲 (idk they don't have a scooter emoji)</h3>
     </header>
     <div id="map"></div>
@@ -49,14 +50,11 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 
-  
+
     <script>
-        
         var map = L.map('map', {
             zoomSnap: .2,
-            zoomControl: false,
-            //center: [10.794, 105.065],
-            //zoom: 11
+            zoomControl: false
         });
 
         //create pane so labels are above geojson
@@ -64,16 +62,17 @@
         map.getPane('labels').style.zIndex = 650;
         map.getPane('labels').style.pointerEvents = 'none';
 
-        var basemap = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/dark_nolabels/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
-        }).addTo(map);
+        var basemap = L.tileLayer(
+            'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/dark_nolabels/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+            }).addTo(map);
 
-        var labels = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_only_labels/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            pane: 'labels'
-        }).addTo(map);
-
+        var labels = L.tileLayer(
+            'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_only_labels/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                pane: 'labels'
+            }).addTo(map);
 
         d3.json('geojsons/mb.geojson').then(function (data) {
 
@@ -84,11 +83,10 @@
             var letters = '0123456789ABCDEF';
             var color = '#';
             for (var i = 0; i < 6; i++) {
-              color += letters[Math.floor(Math.random() * 16)];
+                color += letters[Math.floor(Math.random() * 16)];
             }
             return color;
-          }
-
+        }
 
         function drawMap(data) {
 
@@ -96,15 +94,18 @@
                 style: function (feature) {
                     return {
                         color: getRandomColor()
-                    }  
+                    }
                 }
             }).addTo(map);
 
             map.fitBounds(gjn.getBounds());
 
-            var lineString1 = turf.length(data, {units: 'miles'});
-            document.getElementById('dist').textContent = 'total distance driven calculated with TurfJS: ' + Math.round(lineString1) + ' miles';
-            //console.log(lineString1)
+            var lineString1 = turf.length(data, {
+                units: 'miles'
+            });
+            document.getElementById('dist').textContent = 'total distance driven calculated with TurfJS: ' + Math.round(
+                lineString1) + ' miles';
+            
         }
     </script>
 </body>
